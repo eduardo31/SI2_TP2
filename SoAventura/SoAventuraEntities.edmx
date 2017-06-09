@@ -1,0 +1,1031 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SoAventuraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="canoagem">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="dificuldade" Type="int" />
+        </EntityType>
+        <EntityType Name="ciclismo">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="distancia" Type="int" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="NIF" />
+          </Key>
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="NIF" Type="numeric" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CC" Type="numeric" Precision="9" Scale="0" />
+          <Property Name="Morada" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="data_nascimento" Type="date" />
+          <Property Name="existente" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="escalada">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="dificuldade" Type="int" />
+        </EntityType>
+        <EntityType Name="Evento_Desportivo">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="data_da_realização" Type="datetime" />
+          <Property Name="data_limite_pagamento" Type="date" />
+          <Property Name="fim_data_subscrição" Type="date" />
+          <Property Name="inicio_data_subscrição" Type="date" />
+          <Property Name="idade_min" Type="int" />
+          <Property Name="idade_max" Type="int" />
+          <Property Name="estado" Type="varchar" MaxLength="13" />
+          <Property Name="min_participantes" Type="int" />
+          <Property Name="max_participantes" Type="int" />
+          <Property Name="descrição" Type="varchar" MaxLength="50" />
+          <Property Name="preço_por_participante" Type="smallmoney" />
+          <Property Name="Processed" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'SoAventura.dbo.Fatura' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Fatura">
+          <Property Name="Id_Evento" Type="int" />
+          <Property Name="ano" Type="int" />
+          <Property Name="Id_Factura" Type="int" />
+          <Property Name="montante" Type="smallmoney" />
+          <Property Name="data_pagamento" Type="datetime" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Morada" Type="varchar" MaxLength="50" />
+          <Property Name="NIF" Type="numeric" Precision="9" Scale="0" />
+        </EntityType>-->
+        <EntityType Name="MailsEnviados">
+          <Key>
+            <PropertyRef Name="NIF" />
+          </Key>
+          <Property Name="NIF" Type="numeric" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="MSG" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="Subscrição">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+            <PropertyRef Name="NIF" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="NIF" Type="numeric" Precision="9" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="trail">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="int" Nullable="false" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="distancia" Type="int" />
+        </EntityType>
+        <Association Name="FK__canoagem__35B3A7C0">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="canoagem" Type="Self.canoagem" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="canoagem">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ciclismo__3D54C988">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="ciclismo" Type="Self.ciclismo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="ciclismo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__escalada__398438A4">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="escalada" Type="Self.escalada" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="escalada">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'SoAventura.dbo.Fatura' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__Fatura__4AAEC4A6" />-->
+        <Association Name="FK__Subscrição__48C67C34">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="Subscrição" Type="Self.Subscrição" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="Subscrição">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscrição__NIF__47D257FB">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Subscrição" Type="Self.Subscrição" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="NIF" />
+            </Principal>
+            <Dependent Role="Subscrição">
+              <PropertyRef Name="NIF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trail__41255A6C">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="trail" Type="Self.trail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="trail">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NIF" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EnviarMailIntervalo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Dias" Type="int" Mode="In" />
+        </Function>
+        <Function Name="EventosCancelados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="INICIO" Type="date" Mode="In" />
+          <Parameter Name="FIM" Type="date" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CanoagemCancelados" Type="int" />
+                <Property Name="EscaladaCancelados" Type="int" />
+                <Property Name="TrailCancelados" Type="int" />
+                <Property Name="CiclismoCancelados" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="EventosDisponiveis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="INICIO" Type="date" Mode="In" />
+          <Parameter Name="FIM" Type="date" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Id_Evento" Type="int" Nullable="false" />
+                <Property Name="ano" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="FaturasPorAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ANO" Type="int" Mode="In" />
+          <Parameter Name="MONTANTEMINIMO" Type="smallmoney" Mode="In" />
+          <Parameter Name="MONTANTEMAXIMO" Type="smallmoney" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Id_Evento" Type="int" />
+                <Property Name="ano" Type="int" />
+                <Property Name="NIF" Type="numeric" Precision="9" Scale="0" />
+                <Property Name="montante" Type="smallmoney" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="InsertCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="NIF" Type="numeric" Mode="InOut" />
+          <Parameter Name="CC" Type="numeric" Mode="In" />
+          <Parameter Name="Morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="data_nascimento" Type="date" Mode="In" />
+        </Function>
+        <Function Name="InsertEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+        </Function>
+        <Function Name="InsertEventoCanoagem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="dificuldade" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertEventoCiclismo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="distancia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertEventoEscalada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="dificuldade" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertEventoTrail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="distancia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PagarSubscricao" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="In" />
+          <Parameter Name="ano" Type="int" Mode="In" />
+          <Parameter Name="Id_Factura" Type="int" Mode="InOut" />
+          <Parameter Name="montante" Type="smallmoney" Mode="In" />
+          <Parameter Name="NIF" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="RemoveEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SendMail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NIF" Type="numeric" Mode="In" />
+          <Parameter Name="MSG" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SubscreverClienteEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="In" />
+          <Parameter Name="ano" Type="int" Mode="In" />
+          <Parameter Name="NIF" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="UpdateCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nome" Type="varchar" Mode="In" />
+          <Parameter Name="NIF" Type="numeric" Mode="InOut" />
+          <Parameter Name="CC" Type="numeric" Mode="In" />
+          <Parameter Name="Morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="data_nascimento" Type="date" Mode="In" />
+        </Function>
+        <Function Name="UpdateEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+        </Function>
+        <Function Name="UpdateEventoCanoagem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="dificuldade" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateEventoCiclismo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="distancia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateEventoEscalada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="dificuldade" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateEventoTrail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Evento" Type="int" Mode="InOut" />
+          <Parameter Name="ano" Type="int" Mode="InOut" />
+          <Parameter Name="data_da_realização" Type="datetime" Mode="In" />
+          <Parameter Name="data_limite_pagamento" Type="date" Mode="In" />
+          <Parameter Name="fim_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="inicio_data_subscrição" Type="date" Mode="In" />
+          <Parameter Name="idade_min" Type="int" Mode="In" />
+          <Parameter Name="idade_max" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="min_participantes" Type="int" Mode="In" />
+          <Parameter Name="max_participantes" Type="int" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_por_participante" Type="smallmoney" Mode="In" />
+          <Parameter Name="distancia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="VerificarEstados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SoAventuraModelStoreContainer">
+          <EntitySet Name="canoagem" EntityType="Self.canoagem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ciclismo" EntityType="Self.ciclismo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="escalada" EntityType="Self.escalada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Evento_Desportivo" EntityType="Self.Evento_Desportivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MailsEnviados" EntityType="Self.MailsEnviados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscrição" EntityType="Self.Subscrição" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trail" EntityType="Self.trail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__canoagem__35B3A7C0" Association="Self.FK__canoagem__35B3A7C0">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="canoagem" EntitySet="canoagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ciclismo__3D54C988" Association="Self.FK__ciclismo__3D54C988">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="ciclismo" EntitySet="ciclismo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__escalada__398438A4" Association="Self.FK__escalada__398438A4">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="escalada" EntitySet="escalada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscrição__48C67C34" Association="Self.FK__Subscrição__48C67C34">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="Subscrição" EntitySet="Subscrição" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscrição__NIF__47D257FB" Association="Self.FK__Subscrição__NIF__47D257FB">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Subscrição" EntitySet="Subscrição" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trail__41255A6C" Association="Self.FK__trail__41255A6C">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="trail" EntitySet="trail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SoAventuraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="EventosCancelados_Result">
+          <Property Name="CanoagemCancelados" Type="Int32" />
+          <Property Name="EscaladaCancelados" Type="Int32" />
+          <Property Name="TrailCancelados" Type="Int32" />
+          <Property Name="CiclismoCancelados" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="EventosDisponiveis_Result">
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FaturasPorAno_Result">
+          <Property Name="Id_Evento" Type="Int32" />
+          <Property Name="ano" Type="Int32" />
+          <Property Name="NIF" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="montante" Type="Decimal" Precision="10" Scale="4" />
+        </ComplexType>
+        <EntityType Name="canoagem">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="dificuldade" Type="Int32" />
+          <NavigationProperty Name="Evento_Desportivo" Relationship="Self.FK__canoagem__35B3A7C0" FromRole="canoagem" ToRole="Evento_Desportivo" />
+        </EntityType>
+        <EntityType Name="ciclismo">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="distancia" Type="Int32" />
+          <NavigationProperty Name="Evento_Desportivo" Relationship="Self.FK__ciclismo__3D54C988" FromRole="ciclismo" ToRole="Evento_Desportivo" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="NIF" />
+          </Key>
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NIF" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="CC" Type="Decimal" Precision="9" Scale="0" />
+          <Property Name="Morada" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="data_nascimento" Type="DateTime" Precision="0" />
+          <Property Name="existente" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Evento_Desportivo" Relationship="Self.Subscrição" FromRole="Cliente" ToRole="Evento_Desportivo" />
+        </EntityType>
+        <EntityType Name="escalada">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="dificuldade" Type="Int32" />
+          <NavigationProperty Name="Evento_Desportivo" Relationship="Self.FK__escalada__398438A4" FromRole="escalada" ToRole="Evento_Desportivo" />
+        </EntityType>
+        <EntityType Name="Evento_Desportivo">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="data_da_realização" Type="DateTime" Precision="3" />
+          <Property Name="data_limite_pagamento" Type="DateTime" Precision="0" />
+          <Property Name="fim_data_subscrição" Type="DateTime" Precision="0" />
+          <Property Name="inicio_data_subscrição" Type="DateTime" Precision="0" />
+          <Property Name="idade_min" Type="Int32" />
+          <Property Name="idade_max" Type="Int32" />
+          <Property Name="estado" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="min_participantes" Type="Int32" />
+          <Property Name="max_participantes" Type="Int32" />
+          <Property Name="descrição" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="preço_por_participante" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="Processed" Type="Boolean" />
+          <NavigationProperty Name="canoagem" Relationship="Self.FK__canoagem__35B3A7C0" FromRole="Evento_Desportivo" ToRole="canoagem" />
+          <NavigationProperty Name="ciclismo" Relationship="Self.FK__ciclismo__3D54C988" FromRole="Evento_Desportivo" ToRole="ciclismo" />
+          <NavigationProperty Name="escalada" Relationship="Self.FK__escalada__398438A4" FromRole="Evento_Desportivo" ToRole="escalada" />
+          <NavigationProperty Name="trail" Relationship="Self.FK__trail__41255A6C" FromRole="Evento_Desportivo" ToRole="trail" />
+          <NavigationProperty Name="Cliente" Relationship="Self.Subscrição" FromRole="Evento_Desportivo" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="MailsEnviados">
+          <Key>
+            <PropertyRef Name="NIF" />
+          </Key>
+          <Property Name="NIF" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MSG" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="trail">
+          <Key>
+            <PropertyRef Name="Id_Evento" />
+            <PropertyRef Name="ano" />
+          </Key>
+          <Property Name="Id_Evento" Type="Int32" Nullable="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="distancia" Type="Int32" />
+          <NavigationProperty Name="Evento_Desportivo" Relationship="Self.FK__trail__41255A6C" FromRole="trail" ToRole="Evento_Desportivo" />
+        </EntityType>
+        <Association Name="FK__canoagem__35B3A7C0">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="canoagem" Type="Self.canoagem" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="canoagem">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ciclismo__3D54C988">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="ciclismo" Type="Self.ciclismo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="ciclismo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__escalada__398438A4">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="escalada" Type="Self.escalada" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="escalada">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__trail__41255A6C">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="1" />
+          <End Role="trail" Type="Self.trail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Evento_Desportivo">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Principal>
+            <Dependent Role="trail">
+              <PropertyRef Name="Id_Evento" />
+              <PropertyRef Name="ano" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Subscrição">
+          <End Role="Evento_Desportivo" Type="Self.Evento_Desportivo" Multiplicity="*" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SoAventuraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="canoagem" EntityType="Self.canoagem" />
+          <EntitySet Name="ciclismo" EntityType="Self.ciclismo" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="escalada" EntityType="Self.escalada" />
+          <EntitySet Name="Evento_Desportivo" EntityType="Self.Evento_Desportivo" />
+          <EntitySet Name="MailsEnviados" EntityType="Self.MailsEnviados" />
+          <EntitySet Name="trail" EntityType="Self.trail" />
+          <AssociationSet Name="FK__canoagem__35B3A7C0" Association="Self.FK__canoagem__35B3A7C0">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="canoagem" EntitySet="canoagem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ciclismo__3D54C988" Association="Self.FK__ciclismo__3D54C988">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="ciclismo" EntitySet="ciclismo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__escalada__398438A4" Association="Self.FK__escalada__398438A4">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="escalada" EntitySet="escalada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__trail__41255A6C" Association="Self.FK__trail__41255A6C">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="trail" EntitySet="trail" />
+          </AssociationSet>
+          <AssociationSet Name="Subscrição" Association="Self.Subscrição">
+            <End Role="Evento_Desportivo" EntitySet="Evento_Desportivo" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <FunctionImport Name="EventosCancelados" IsComposable="true" ReturnType="Collection(SoAventuraModel.EventosCancelados_Result)">
+            <Parameter Name="INICIO" Mode="In" Type="DateTime" />
+            <Parameter Name="FIM" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="EventosDisponiveis" IsComposable="true" ReturnType="Collection(SoAventuraModel.EventosDisponiveis_Result)">
+            <Parameter Name="INICIO" Mode="In" Type="DateTime" />
+            <Parameter Name="FIM" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="FaturasPorAno" IsComposable="true" ReturnType="Collection(SoAventuraModel.FaturasPorAno_Result)">
+            <Parameter Name="ANO" Mode="In" Type="Int32" />
+            <Parameter Name="MONTANTEMINIMO" Mode="In" Type="Decimal" />
+            <Parameter Name="MONTANTEMAXIMO" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCliente">
+            <Parameter Name="NIF" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EnviarMailIntervalo">
+            <Parameter Name="Dias" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertCliente">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="NIF" Mode="InOut" Type="Decimal" />
+            <Parameter Name="CC" Mode="In" Type="Decimal" />
+            <Parameter Name="Morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="data_nascimento" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEvento">
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEventoCanoagem">
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="dificuldade" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEventoCiclismo">
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="distancia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEventoEscalada">
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="dificuldade" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEventoTrail">
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="distancia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PagarSubscricao">
+            <Parameter Name="Id_Evento" Mode="In" Type="Int32" />
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Factura" Mode="InOut" Type="Int32" />
+            <Parameter Name="montante" Mode="In" Type="Decimal" />
+            <Parameter Name="NIF" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="RemoveEvento">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SendMail">
+            <Parameter Name="NIF" Mode="In" Type="Decimal" />
+            <Parameter Name="MSG" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SubscreverClienteEvento">
+            <Parameter Name="Id_Evento" Mode="In" Type="Int32" />
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+            <Parameter Name="NIF" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCliente">
+            <Parameter Name="Nome" Mode="In" Type="String" />
+            <Parameter Name="NIF" Mode="InOut" Type="Decimal" />
+            <Parameter Name="CC" Mode="In" Type="Decimal" />
+            <Parameter Name="Morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="data_nascimento" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateEvento">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateEventoCanoagem">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="dificuldade" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateEventoCiclismo">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="distancia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateEventoEscalada">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="dificuldade" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateEventoTrail">
+            <Parameter Name="Id_Evento" Mode="InOut" Type="Int32" />
+            <Parameter Name="ano" Mode="InOut" Type="Int32" />
+            <Parameter Name="data_da_realização" Mode="In" Type="DateTime" />
+            <Parameter Name="data_limite_pagamento" Mode="In" Type="DateTime" />
+            <Parameter Name="fim_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="inicio_data_subscrição" Mode="In" Type="DateTime" />
+            <Parameter Name="idade_min" Mode="In" Type="Int32" />
+            <Parameter Name="idade_max" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="min_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="max_participantes" Mode="In" Type="Int32" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_por_participante" Mode="In" Type="Decimal" />
+            <Parameter Name="distancia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="VerificarEstados" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SoAventuraModelStoreContainer" CdmEntityContainer="SoAventuraEntities">
+          <EntitySetMapping Name="canoagem">
+            <EntityTypeMapping TypeName="SoAventuraModel.canoagem">
+              <MappingFragment StoreEntitySet="canoagem">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="dificuldade" ColumnName="dificuldade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciclismo">
+            <EntityTypeMapping TypeName="SoAventuraModel.ciclismo">
+              <MappingFragment StoreEntitySet="ciclismo">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="distancia" ColumnName="distancia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="SoAventuraModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="Morada" ColumnName="Morada" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="existente" ColumnName="existente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="escalada">
+            <EntityTypeMapping TypeName="SoAventuraModel.escalada">
+              <MappingFragment StoreEntitySet="escalada">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="dificuldade" ColumnName="dificuldade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Evento_Desportivo">
+            <EntityTypeMapping TypeName="SoAventuraModel.Evento_Desportivo">
+              <MappingFragment StoreEntitySet="Evento_Desportivo">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="data_da_realização" ColumnName="data_da_realização" />
+                <ScalarProperty Name="data_limite_pagamento" ColumnName="data_limite_pagamento" />
+                <ScalarProperty Name="fim_data_subscrição" ColumnName="fim_data_subscrição" />
+                <ScalarProperty Name="inicio_data_subscrição" ColumnName="inicio_data_subscrição" />
+                <ScalarProperty Name="idade_min" ColumnName="idade_min" />
+                <ScalarProperty Name="idade_max" ColumnName="idade_max" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="min_participantes" ColumnName="min_participantes" />
+                <ScalarProperty Name="max_participantes" ColumnName="max_participantes" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+                <ScalarProperty Name="preço_por_participante" ColumnName="preço_por_participante" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailsEnviados">
+            <EntityTypeMapping TypeName="SoAventuraModel.MailsEnviados">
+              <MappingFragment StoreEntitySet="MailsEnviados">
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="MSG" ColumnName="MSG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trail">
+            <EntityTypeMapping TypeName="SoAventuraModel.trail">
+              <MappingFragment StoreEntitySet="trail">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="distancia" ColumnName="distancia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Subscrição" TypeName="SoAventuraModel.Subscrição" StoreEntitySet="Subscrição">
+            <EndProperty Name="Evento_Desportivo">
+              <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+              <ScalarProperty Name="ano" ColumnName="ano" />
+            </EndProperty>
+            <EndProperty Name="Cliente">
+              <ScalarProperty Name="NIF" ColumnName="NIF" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionName="SoAventuraModel.Store.EventosCancelados" FunctionImportName="EventosCancelados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoAventuraModel.EventosCancelados_Result">
+                <ScalarProperty Name="CanoagemCancelados" ColumnName="CanoagemCancelados" />
+                <ScalarProperty Name="EscaladaCancelados" ColumnName="EscaladaCancelados" />
+                <ScalarProperty Name="TrailCancelados" ColumnName="TrailCancelados" />
+                <ScalarProperty Name="CiclismoCancelados" ColumnName="CiclismoCancelados" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="SoAventuraModel.Store.EventosDisponiveis" FunctionImportName="EventosDisponiveis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoAventuraModel.EventosDisponiveis_Result">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="SoAventuraModel.Store.FaturasPorAno" FunctionImportName="FaturasPorAno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SoAventuraModel.FaturasPorAno_Result">
+                <ScalarProperty Name="Id_Evento" ColumnName="Id_Evento" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="montante" ColumnName="montante" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteCliente" FunctionName="SoAventuraModel.Store.DeleteCliente" />
+          <FunctionImportMapping FunctionImportName="EnviarMailIntervalo" FunctionName="SoAventuraModel.Store.EnviarMailIntervalo" />
+          <FunctionImportMapping FunctionImportName="InsertCliente" FunctionName="SoAventuraModel.Store.InsertCliente" />
+          <FunctionImportMapping FunctionImportName="InsertEvento" FunctionName="SoAventuraModel.Store.InsertEvento" />
+          <FunctionImportMapping FunctionImportName="InsertEventoCanoagem" FunctionName="SoAventuraModel.Store.InsertEventoCanoagem" />
+          <FunctionImportMapping FunctionImportName="InsertEventoCiclismo" FunctionName="SoAventuraModel.Store.InsertEventoCiclismo" />
+          <FunctionImportMapping FunctionImportName="InsertEventoEscalada" FunctionName="SoAventuraModel.Store.InsertEventoEscalada" />
+          <FunctionImportMapping FunctionImportName="InsertEventoTrail" FunctionName="SoAventuraModel.Store.InsertEventoTrail" />
+          <FunctionImportMapping FunctionImportName="PagarSubscricao" FunctionName="SoAventuraModel.Store.PagarSubscricao" />
+          <FunctionImportMapping FunctionImportName="RemoveEvento" FunctionName="SoAventuraModel.Store.RemoveEvento" />
+          <FunctionImportMapping FunctionImportName="SendMail" FunctionName="SoAventuraModel.Store.SendMail" />
+          <FunctionImportMapping FunctionImportName="SubscreverClienteEvento" FunctionName="SoAventuraModel.Store.SubscreverClienteEvento" />
+          <FunctionImportMapping FunctionImportName="UpdateCliente" FunctionName="SoAventuraModel.Store.UpdateCliente" />
+          <FunctionImportMapping FunctionImportName="UpdateEvento" FunctionName="SoAventuraModel.Store.UpdateEvento" />
+          <FunctionImportMapping FunctionImportName="UpdateEventoCanoagem" FunctionName="SoAventuraModel.Store.UpdateEventoCanoagem" />
+          <FunctionImportMapping FunctionImportName="UpdateEventoCiclismo" FunctionName="SoAventuraModel.Store.UpdateEventoCiclismo" />
+          <FunctionImportMapping FunctionImportName="UpdateEventoEscalada" FunctionName="SoAventuraModel.Store.UpdateEventoEscalada" />
+          <FunctionImportMapping FunctionImportName="UpdateEventoTrail" FunctionName="SoAventuraModel.Store.UpdateEventoTrail" />
+          <FunctionImportMapping FunctionImportName="VerificarEstados" FunctionName="SoAventuraModel.Store.VerificarEstados" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
