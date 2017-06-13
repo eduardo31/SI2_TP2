@@ -13,17 +13,16 @@ namespace SoAventura
         {
             List<ICmd> cmds = new List<ICmd>();
             
-            cmds.Add(new Subscrever("1) Subscrever cliente."));
-            /*cmds.Add(new DeletePromoCmd(DELETE_PROMO));
-            cmds.Add(new UpdatePromoCmd(UPDATE_PROMO));
-            cmds.Add(new InsertRentFullClientCmd(INSERT_RENT_CLIENT));
-            cmds.Add(new InsertRentCmd(INSERT_RENT));
-            cmds.Add(new RemoveRentCmd(REMOVE_RENT));
-            cmds.Add(new UpdateRentPriceCmd(UPDATE_RENTPRICE));
-            cmds.Add(new ListFreeEquipDateCmd(LIST_FREE_EQUIP_DATE));
-            cmds.Add(new ListEquipRentCmd(LIST_RENT));
-            cmds.Add(new ExportRentCmd(XML_EXPORT_RENT));
-            cmds.Add(new ExitCmd(EXIT_APP));*/
+            cmds.Add(new Subscrever("1) Subscrever cliente."));//E
+            cmds.Add(new PagarSubscricao("2) Pagar uma subscrição."));//F
+            cmds.Add(new VerificarEstados("3) Atualizar Estados em relação a data corrente."));//G
+            cmds.Add(new EnviarMailIntervalo("4) Enviar avisos por email a todos os clientes inscritos em eventos que se irão realizar num intervalo de tempo."));//H
+            cmds.Add(new EventosCancelados("5) Listar a contagem dos eventos cancelados."));//I
+            cmds.Add(new EventosDisponiveis("6) Listar todos os eventos com lugares disponíveis para um intervalo de datas."));//J
+            cmds.Add(new FaturasPorAno("7) Obter os pagamentos realizados num dado ano com um intervalo de amostragem especificado."));//K
+            cmds.Add(new DeleteEventos("8) Eliminar Eventos de um dado ano."));//1C
+            int last = cmds.Count+1;
+            cmds.Add(new ExitCmd(last+") Para fechar a aplicação."));
             return cmds;
         }
         static void Main(string[] args)
@@ -43,7 +42,6 @@ namespace SoAventura
                 Console.WriteLine("Invalid letter choosing ADO has default!");
                 isAdo = true;
             }
-            //Run(cmds, isAdo);
 
             ICmd cmd;
             while (true)

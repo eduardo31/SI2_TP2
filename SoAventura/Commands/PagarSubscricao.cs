@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace SoAventura.Commands
 {
-    class Subscrever : ICmd
+    class PagarSubscricao : ICmd
     {
         public readonly string Description;
-        public Subscrever(string desc) {
+        public PagarSubscricao(string desc) {
             Description=desc;
         }
         public override string ToString()
@@ -22,7 +23,7 @@ namespace SoAventura.Commands
 
         public void Execute(string conLink)
         {
-            int IDevento, ano, Nif;
+            int IDevento, ano, Nif,montante;
             List<int> prms = new List<int>();
             prms = InfoGetter(prms);
 
@@ -30,7 +31,9 @@ namespace SoAventura.Commands
             {
                 IDevento = prms[0];
                 ano = prms[1];
-                Nif = prms[2];
+                montante = prms[2];
+                Nif = prms[3];
+
             }
             catch (FormatException)
             {
@@ -48,15 +51,20 @@ namespace SoAventura.Commands
                     {
                         cmd.Transaction = tran;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "SubscreverClienteEvento";
+                        cmd.CommandText = "PagarSubscricao";
 
                         cmd.Parameters.Add("@Id_Evento", SqlDbType.Int).Value = IDevento;
                         cmd.Parameters.Add("@ano", SqlDbType.Int).Value = ano;
+                        var Fac_ID = cmd.Parameters.Add("@Id_Factura", SqlDbType.Int);
+                        cmd.Parameters.Add("@montante", SqlDbType.Int).Value = ano;
                         cmd.Parameters.Add("@NIF", SqlDbType.Int).Value = Nif;
+
+                        
+                        Fac_ID.Direction = ParameterDirection.Output;
 
                         cmd.ExecuteNonQuery();
 
-                        Console.WriteLine("Subscrição efectuada com sucesso !");
+                        Console.WriteLine("Subscrição paga com sucesso com o id {0}", (int)Fac_ID.Value);
                     }
                 }
                 catch (Exception e)
@@ -72,7 +80,7 @@ namespace SoAventura.Commands
 
         public void ExecuteEnt()
         {
-            int IDevento, ano, Nif;
+            int IDevento, ano, Nif, montante;
             List<int> prms = new List<int>();
             prms = InfoGetter(prms);
 
@@ -80,7 +88,9 @@ namespace SoAventura.Commands
             {
                 IDevento = prms[0];
                 ano = prms[1];
-                Nif = prms[2];
+                montante = prms[2];
+                Nif = prms[3];
+
             }
             catch (FormatException)
             {
@@ -88,12 +98,12 @@ namespace SoAventura.Commands
                 return;
             }
 
-            
+            var Fac_ID = new ObjectParameter("Id_Factura", typeof(Int32));
             using (var ctx = new SoAventuraEntities())
             {
                 try
                 {
-                    ctx.SubscreverClienteEvento(IDevento, ano, Nif);
+                    ctx.PagarSubscricao(IDevento, ano,Fac_ID,montante, Nif);
                     ctx.SaveChanges();
                 }
                 catch (Exception e)
@@ -104,16 +114,19 @@ namespace SoAventura.Commands
 
             }
 
-            Console.WriteLine("Subscrição efectuada com sucesso !");
+            Console.WriteLine("Subscrição paga com sucesso com o id {0}", (int)Fac_ID.Value);
         }
         private List<int> InfoGetter(List<int> prms)
         {
-            Console.WriteLine("Subscrever um cliente a um Evento.");
+            Console.WriteLine("Pagar uma Subscrição.");
 
             Console.WriteLine("Seleccionar evento:");
             prms.Add(Convert.ToInt32(Console.ReadLine()));
 
             Console.WriteLine("Seleccionar ano do evento:");
+            prms.Add(Convert.ToInt32(Console.ReadLine()));
+
+            Console.WriteLine("Seleccionar o montante:");
             prms.Add(Convert.ToInt32(Console.ReadLine()));
 
             Console.WriteLine("Nif do cliente a adicionar:");

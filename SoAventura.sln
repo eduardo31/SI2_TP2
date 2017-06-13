@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoAventura", "SoAventura\SoAventura.csproj", "{961B7116-B180-456E-8882-EB73CDC27C0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoAventurTester", "SoAventurTester\SoAventurTester.csproj", "{CC287C3D-0FDD-49C8-BC05-2631807B2731}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{961B7116-B180-456E-8882-EB73CDC27C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{961B7116-B180-456E-8882-EB73CDC27C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{961B7116-B180-456E-8882-EB73CDC27C0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC287C3D-0FDD-49C8-BC05-2631807B2731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC287C3D-0FDD-49C8-BC05-2631807B2731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC287C3D-0FDD-49C8-BC05-2631807B2731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC287C3D-0FDD-49C8-BC05-2631807B2731}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
