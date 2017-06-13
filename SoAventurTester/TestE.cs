@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 namespace SoAventuraTests
 {
     [TestClass]
-    class TestE
+    class TestE//Para implementar
     {
         [TestMethod]
         public void TestMethod1()
         {
             
-            Assert.AreEqual("stuff", "shit");
 
 
 

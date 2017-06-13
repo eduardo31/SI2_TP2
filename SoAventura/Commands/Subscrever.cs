@@ -34,7 +34,7 @@ namespace SoAventura.Commands
             }
             catch (FormatException)
             {
-                Console.WriteLine("Some parameters were wrong...");
+                Console.WriteLine("Alguns parametros estavam errados.");
                 return;
             }
             using (SqlConnection con = new SqlConnection(conLink))
@@ -84,7 +84,7 @@ namespace SoAventura.Commands
             }
             catch (FormatException)
             {
-                Console.WriteLine("Some parameters were wrong...");
+                Console.WriteLine("Alguns parametros estavam errados.");
                 return;
             }
 

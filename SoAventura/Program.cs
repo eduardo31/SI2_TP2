@@ -20,7 +20,9 @@ namespace SoAventura
             cmds.Add(new EventosCancelados("5) Listar a contagem dos eventos cancelados."));//I
             cmds.Add(new EventosDisponiveis("6) Listar todos os eventos com lugares disponíveis para um intervalo de datas."));//J
             cmds.Add(new FaturasPorAno("7) Obter os pagamentos realizados num dado ano com um intervalo de amostragem especificado."));//K
-            cmds.Add(new DeleteEventos("8) Eliminar Eventos de um dado ano."));//1C
+            cmds.Add(new TotalPagoPorCliente("8) Obter o total pago por cliente."));//1B
+            cmds.Add(new DeleteEventos("9) Eliminar Eventos de um dado ano."));//1C
+
             int last = cmds.Count+1;
             cmds.Add(new ExitCmd(last+") Para fechar a aplicação."));
             return cmds;

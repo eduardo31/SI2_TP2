@@ -37,7 +37,7 @@ namespace SoAventura.Commands
             }
             catch (FormatException)
             {
-                Console.WriteLine("Some parameters were wrong...");
+                Console.WriteLine("Alguns parametros estavam errados.");
                 return;
             }
             using (SqlConnection con = new SqlConnection(conLink))
@@ -63,7 +63,7 @@ namespace SoAventura.Commands
 
                         cmd.ExecuteNonQuery();
 
-                        Console.WriteLine("Eventos Apagados.");                        
+                        Console.WriteLine("Eventos apagados com sucesso !");                        
                     }
                 }
                 catch (Exception e)
@@ -89,56 +89,24 @@ namespace SoAventura.Commands
             }
             catch (FormatException)
             {
-                Console.WriteLine("Some parameters were wrong...");
+                Console.WriteLine("Alguns parametros estavam errados.");
                 return;
             }
 
 
             using (var ctx = new SoAventuraEntities())
             {
-
-                ctx.Database.ExecuteSqlCommand("delete from  dbo.Fatura where ano = @ANO " +
-                            "delete from  dbo.Subscrição where ano = @ANO " +
-                            "delete from  dbo.trail where ano = @ANO " +
-                            "delete from  dbo.ciclismo where ano = @ANO " +
-                            "delete from  dbo.escalada where ano = @ANO " +
-                            "delete from  dbo.canoagem where ano = @ANO " +
-                            "delete from  dbo.Evento_Desportivo where ano = @ANO ",ano);
-                /*try
-                {
-                    var deleteOrderDetails =
-                        from details in db.OrderDetails
-                        where details.OrderID == 11000
-                        select details;
-
-                    foreach (var detail in deleteOrderDetails)
-                    {
-                        db.OrderDetails.DeleteOnSubmit(detail);
-                    }
-
-                    try
-                    {
-                        db.SubmitChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        // Provide for exceptions.
-                    }
-
-    */
-                    //ctx.SubscreverClienteEvento(IDevento, ano, Nif);
-                    ctx.SaveChanges();
+                
+                ctx.Database.ExecuteSqlCommand("delete from  dbo.Fatura where ano = {0} " +
+                            "delete from  dbo.Subscrição where ano = {0} " +
+                            "delete from  dbo.trail where ano = {0} " +
+                            "delete from  dbo.ciclismo where ano = {0} " +
+                            "delete from  dbo.escalada where ano = {0} " +
+                            "delete from  dbo.canoagem where ano = {0} " +
+                            "delete from  dbo.Evento_Desportivo where ano = {0} ",ano);
+                ctx.SaveChanges();
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                    return;
-                }
-
-            }
-
-            Console.WriteLine("Subscrição efectuada com sucesso !");
+                Console.WriteLine("Eventos apagados com sucesso !");
         }
         private List<int> InfoGetter(List<int> prms)
         {
